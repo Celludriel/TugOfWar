@@ -8,8 +8,8 @@ if(_isDeployed)then{
 
     _mhq setVehicleLock "UNLOCKED";
     _mhq setVariable ["MhqDeployed", false, true];
-    _respawnId = _mhq getVariable ["MhqDeployed", 0];
-    [west, _respawnId] call BIS_fnc_removeRespawnPosition;
+    _respawnId = _mhq getVariable "RespawnId";
+    _respawnId call BIS_fnc_removeRespawnPosition;
 
     _mhq removeAction _actionId;
     _mhq addAction ["Deploy", {[[[_this select 0, _this select 2], "scripts\mhq\mhq_deploy_action.sqf"], "BIS_fnc_execVM", true, true] call BIS_fnc_MP;}];

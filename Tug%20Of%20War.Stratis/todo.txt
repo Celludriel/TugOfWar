@@ -1,11 +1,8 @@
 TODO:
 
-- test Respawning when you are not the only player takes amount from war according to difficulty
-- test on revive no amount is taken from the war result
+- Test the mobile HQ system in multiplayer
 - Implement a credit system players need to spawn vehicles
-- Losing or winning a mission updates war result with different amounts according to difficulty from the mission
 - Fill in the blanks in mission meta data: Briefing, Intro, Amount of players, etc..
-- Implement a mobile HQ system
 - Make revive parameters
 - Let three missions spawn easy, medium, hard
 - Implement unit caching if possible

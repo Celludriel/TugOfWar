@@ -86,7 +86,7 @@ class Mission
 			vehicle="B_MRAP_01_hmg_F";
 			skill=0.60000002;
 			text="mhq1";
-			init="veh = [this] execVM ""scripts\vehicle_respawns.sqf"";";
+			init="veh = [this, 30, 0, 0, FALSE, ""_this execVM 'scripts\mhq\mhq_respawn_init.sqf'""] execVM ""scripts\vehicle_respawns.sqf""";
 		};
 		class Item1
 		{
@@ -98,7 +98,7 @@ class Mission
 			vehicle="B_Heli_Transport_01_F";
 			skill=0.60000002;
 			text="mhq2";
-			init="veh = [this] execVM ""scripts\vehicle_respawns.sqf"";";
+			init="veh = [this, 30, 0, 0, FALSE, ""_this execVM 'scripts\mhq\mhq_respawn_init.sqf'""] execVM ""scripts\vehicle_respawns.sqf""";
 		};
 		class Item2
 		{
