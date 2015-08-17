@@ -3,7 +3,6 @@ _mhq      = _this select 0;
 _actionId = _this select 1;
 
 _isDeployed = _mhq getVariable "MhqDeployed";
-diag_log format ["_isDeployed: %1", _isDeployed];
 if(_isDeployed)then{
 
     _mhq setVehicleLock "UNLOCKED";
