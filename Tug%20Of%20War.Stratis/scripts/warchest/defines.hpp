@@ -1,0 +1,1 @@
+#define DEFAULT_WARCHEST_VALUE           100
