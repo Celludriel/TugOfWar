@@ -1,7 +1,5 @@
 diag_log format ["Executing tug_init.sqf"];
 
-[] execVM "scripts\warchest\warchest_init.sqf";
-
 if (isServer) then {
     diag_log format ["TUG server side init"];
     //this code will run only once on the server PC
@@ -19,6 +17,6 @@ if (isServer) then {
     [] execVM "scripts\tug\tug_engine.sqf";
 };
 
-if (hasInterface) then {    
+if (hasInterface) then {
     player addMPEventhandler ["MPRespawn", {["scripts\tug\tug_player_respawn.sqf","BIS_fnc_execVM",true,true ] call BIS_fnc_MP}];
 };

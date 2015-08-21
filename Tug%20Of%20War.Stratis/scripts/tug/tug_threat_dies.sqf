@@ -1,4 +1,4 @@
-#include "scripts\tug\defines.hpp"
+#include "defines.hpp"
 
 diag_log format ["Calling tug_threat_dies with %1", _this];
 

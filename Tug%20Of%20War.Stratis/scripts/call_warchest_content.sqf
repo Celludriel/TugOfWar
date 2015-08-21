@@ -1,2 +1,2 @@
-_sGetFundsInWarchest = [player];
-publicVariableServer "_sGetFundsInWarchest";
+sGetFundsInWarchest = [player];
+publicVariableServer "sGetFundsInWarchest";
