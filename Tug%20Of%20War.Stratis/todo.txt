@@ -1,7 +1,7 @@
 TODO:
 
 - Test the mobile HQ system in multiplayer
-- Implement a credit system players need to spawn vehicles
+- Test credit system players need to spawn vehicles
 - Fill in the blanks in mission meta data: Briefing, Intro, Amount of players, etc..
 - Make revive parameters
 - Let three missions spawn easy, medium, hard

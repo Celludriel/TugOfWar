@@ -1,4 +1,4 @@
-#include "defines.hpp"
+#include "scripts\warchest\defines.hpp"
 
 if(isServer) then {
     fetchWarchest = {

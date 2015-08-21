@@ -55,7 +55,7 @@ calculateVehicleSpawnAmount = {
 
 spawnThreatAtLocation = {
     diag_log format ["Calling spawnThreatAtLocation with %1", _this];
-    private ["_difficulty","_location", "_infantryAmount", "_vehicleAmount", "_spawnId", "_timeToLive"];
+    private ["_difficulty","_location", "_infantryAmount", "_vehicleAmount", "_spawnId", "_timeToLive", "_custInit"];
 
     _difficulty     = _this select 0;
     _location       = _this select 1;
@@ -63,9 +63,10 @@ spawnThreatAtLocation = {
     _vehicleAmount  = _this select 3;
     _spawnId        = _this select 4;
     _timeToLive     = _this select 5;
+    _custInit       = _this select 6;
 
     _aiDifficulty = [_difficulty] call calculateAiDifficulty;
-    _trgCommand   = format ["nul = [%1,2,150,[true,false],[true,true,true],false,[%2,0],[%3,0],%4,nil,nil,%5] execVM 'scripts\threatmanager\LV\militarize.sqf'", _location,_infantryAmount,_vehicleAmount,_aiDifficulty,_spawnId];
+    _trgCommand   = format ["nul = [%1,2,150,[true,false],[true,true,true],false,[%2,0],[%3,0],%4,nil,%5,%6] execVM 'scripts\threatmanager\LV\militarize.sqf'", _location,_infantryAmount,_vehicleAmount,_aiDifficulty,_custInit,_spawnId];
     diag_log format ["Preparing trigger command: %1", _trgCommand];
 
     _trg = [_spawnId, _location, 600, _trgCommand] call createSpawnTrigger;

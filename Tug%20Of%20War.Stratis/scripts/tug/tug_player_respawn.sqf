@@ -2,6 +2,7 @@ diag_log format ["Executing tug_player_respawn.sqf"];
 
 player addaction ["eyeon", "scripts\eye.sqf"];
 player addaction ["eyeoff", "EYE_run = false;"];
+player addaction ["warchest content", "scripts\call_warchest_content.sqf"];
 
 if(isServer)then{
     if((west countSide allPlayers) > 1) then {
