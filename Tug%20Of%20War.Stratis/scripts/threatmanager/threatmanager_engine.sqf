@@ -1,7 +1,6 @@
 diag_log format ["Executing threatmanager_engine.sqf"];
 if (isServer) then {
 	while{ true } do {
-		diag_log format ["Evaluating all threats"];
 		if(!isNil "activeThreatGroups") then {
 			_timeSpot = serverTime;
 			{

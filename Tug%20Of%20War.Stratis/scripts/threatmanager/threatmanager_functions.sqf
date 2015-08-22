@@ -129,13 +129,12 @@ removeThreatFromActiveThreatGroupsBySpawnId = {
 
     _spawnId = _this select 0;
 
+    diag_log format ["activeThreatGroups: %1", activeThreatGroups];
     _newArray = [];
     {
+        diag_log format ["_x: %1", _x];
         if(_x select 0 != _spawnId) then {
             _newArray pushBack _x;
-        }else{
-            //removing the threat trigger
-            deletevehicle _x select 1;
         };
     } forEach activeThreatGroups;
     activeThreatGroups = _newArray;

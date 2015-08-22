@@ -6,6 +6,8 @@ if (isServer) then {
 
     warchestBank = [];
 
+    onPlayerConnected {_uid call initWarchest};
+
     "sCanAfford" addPublicVariableEventHandler {
         _client    = _this select 1 select 0;
         _amount    = _this select 1 select 1;
@@ -33,12 +35,7 @@ if (isServer) then {
 
         diag_log format ["_sGetFundsInWarchest %1, %2, %3, %4", _client, _uid, _pcid, _warchest];
 
-        _bankEntry = nil;
-        if(isNull _warchest)then {
-            _bankEntry = (_uid call initWarchest) select 1;
-        }else{
-            _bankEntry = _warchest select 1;
-        };
+        _bankEntry = _warchest select 1;
 
         diag_log format ["_bankEntry is %1", _bankEntry];
 

@@ -15,7 +15,7 @@ if (isServer) then {
 
 
 
-    _spawnInit = """_this addEventHandler ['killed',{_this execVM 'scripts\tug\tug_threat_dies.sqf'}];""";
+    _spawnInit = """this addEventHandler ['killed',{_this execVM 'scripts\tug\tug_threat_dies.sqf'}];""";
     [_difficulty, _civSpawnLocation,_infAmount,_vehAmount,killCivMissionThreatGroupId,3720,_spawnInit] call spawnThreatAtLocation;
 
     ["KillCivilianTraitor","Eliminate the traitor","Intelligence found out a traitor is giving information to the enemy, eliminate him.  He will only be in the area for the next hour so be quick !",true,["KillCivilianMarker",_civSpawnLocation]] call SHK_Taskmaster_add;
@@ -23,6 +23,7 @@ if (isServer) then {
     _winEventHandler = _winCivilian addMPEventHandler ["mpkilled",{
                                                         missionResult = "WON";
                                                         ["KillCivilianTraitor","succeeded"] call SHK_Taskmaster_upd;
+                                                        [50] call changeFundsAllPlayers;
                                                     }];
 
 

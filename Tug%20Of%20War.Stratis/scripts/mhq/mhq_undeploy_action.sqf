@@ -11,5 +11,5 @@ if(_isDeployed)then{
     _respawnId call BIS_fnc_removeRespawnPosition;
 
     _mhq removeAction _actionId;
-    _mhq addAction ["Deploy", {[[[_this select 0, _this select 2], "scripts\mhq\mhq_deploy_action.sqf"], "BIS_fnc_execVM", true, true] call BIS_fnc_MP;}];
+    _mhq addAction ["Deploy", {[[[_this select 0, _this select 2], "scripts\mhq\mhq_deploy_action.sqf"], "BIS_fnc_execVM", true, true] call BIS_fnc_MP;},nil,1.5,true,true,"","{alive _x} count crew _target == 0"];
 };
