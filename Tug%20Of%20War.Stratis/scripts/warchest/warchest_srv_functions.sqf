@@ -54,4 +54,19 @@ if(isServer) then {
             [_x select 0, _amount] call changeFunds;
         } forEach warchestBank;
     };
+
+    canAfford = {
+        diag_log format ["Calling canAfford, with %1", _this];
+        _uid    = _this select 0;
+        _amount = _this select 1;
+        
+        _retValue  = false;
+        _bankEntry = (_uid call fetchWarchest) select 1;
+        if(!isNil "_bankEntry") then {
+            if(_bankEntry select 1 >= _amount) then{
+                _retValue = true;
+            };
+        };
+        _retValue    
+    };
 };

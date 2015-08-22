@@ -16,13 +16,8 @@ if (isServer) then {
 
         diag_log format ["_sCanAfford %1, %2, %3, %4", _client, _amount, _uid, _pcid];
 
-        cCanAfford = false;
-        _bankEntry  = (_uid call fetchWarchest) select 1;
-        if(!isNil "_bankEntry") then {
-            if(_bankEntry select 1 >= _amount) then{
-                cCanAfford = true;
-            };
-        };
+        cCanAfford = [_uid, _amount] call canAfford;
+
         diag_log format ["_sCanAfford returning %1", cCanAfford];
         _pcid publicVariableClient "cCanAfford";
     };

@@ -1,9 +1,13 @@
 TODO:
 
 - Test the mobile HQ system in multiplayer
-- Test credit system players need to spawn vehicles
+- Test credit system in multiplayer
+- Implement vehicle service script http://www.armaholic.com/page.php?id=19735
 - Fill in the blanks in mission meta data: Briefing, Intro, Amount of players, etc..
 - Make revive parameters
+- Make mission spawn at random mission spawn markers
+- Add more mission spawn markers
 - Let three missions spawn easy, medium, hard
 - Implement unit caching if possible
+- Create a mission with FSM
 - Create more missions
