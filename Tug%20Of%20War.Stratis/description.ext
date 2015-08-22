@@ -1,4 +1,5 @@
 #include "controls\balancebar\defines.hpp"
+//#include "gvs\colors_include.hpp"
 
 author              = "Celludriel";
 onLoadName          = "Tug Of War";
@@ -27,4 +28,5 @@ class RscTitles
 {
     #include "controls\balancebar\balancebar.hpp"
     #include "dialog\statusBar.hpp"
+    #include "scripts\gvs\stc_include_alt.hpp"
 };

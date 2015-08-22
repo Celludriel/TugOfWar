@@ -27,9 +27,14 @@ _station addaction [format["Requisition (%1)", _value],
         _list          = _spawnLocation nearObjects 5;
 
         if(count _list == 0) then {
-            _vehicle = createVehicle [_vehicleType, _spawnLocation, [], 0, "NONE"];
+            _random = round(random 10000);
             _dir     = markerDir _spawnMarker;
-            _vehicle setDir _dir;
+
+            call compile format["reqVehicle%1 = createVehicle ['%2', %3, [], 0, 'NONE'];", _random, _vehicleType, _spawnLocation];
+            call compile format["reqVehicle%1 setVehicleVarName 'reqVehicle%1';", _random];
+            call compile format["publicVariable 'reqVehicle%1'", _random];
+            call compile format["reqVehicle%1 setDir _dir;", _random];
+
             [_uid, -(_value)] call changeFunds;
         } else {
             hint "Something is blocking the deployment zone";

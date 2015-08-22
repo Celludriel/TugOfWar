@@ -4,6 +4,7 @@ diag_log format ["Executing init.sqf"];
 
 call compileFinal preprocessFileLineNumbers "scripts\shk_taskmaster\shk_taskmaster.sqf";
 call compileFinal preprocessFileLineNumbers "scripts\far_revive\FAR_revive_init.sqf";
+execVM "scripts\gvs\gvs_init.sqf";
 
 if(hasInterface) then {
     [] execVM "controls\balancebar\balancebar_init.sqf";

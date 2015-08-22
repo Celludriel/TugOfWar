@@ -129,7 +129,7 @@ class Mission
 	};
 	class Markers
 	{
-		items=5;
+		items=6;
 		class Item0
 		{
 			position[]={2970.146,3.3146946,6059.29};
@@ -162,6 +162,14 @@ class Mission
 			name="requisition_tank_1";
 			type="Empty";
 			angle=9.9359303;
+		};
+		class Item5
+		{
+			position[]={2122.3306,6.2336183,5727.2764};
+			name="gvs_veh_0";
+			text="Vehicle Service Point";
+			type="o_maint";
+			colorName="ColorBlue";
 		};
 	};
 };
