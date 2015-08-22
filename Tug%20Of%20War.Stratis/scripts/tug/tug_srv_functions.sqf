@@ -17,6 +17,8 @@ if (isServer) then {
 
     getWarResult = {
         diag_log format ["Calling getWarResult, warProgress: %1", warProgress];
+        private ["_retValue"];
+
         _retValue = "ONGOING";
         if(warProgress >= 100) then {
             _retValue = "WON";
@@ -31,6 +33,7 @@ if (isServer) then {
 
     calculateMissionResult = {
         diag_log format ["Calling calculateMissionResult, with %1", _this];
+        private ["_retValue", "_missionDifficulty", "_hasWon"];
 
         _missionDifficulty = _this select 0;
         _hasWon            = _this select 1;

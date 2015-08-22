@@ -3,6 +3,8 @@
 if(isServer) then {
     fetchWarchest = {
         diag_log format ["Calling fetchWarchest, with %1", _this];
+        private ["_retValue"];
+
         diag_log format ["warchestBank: %1", warchestBank];
         _retValue = nil;
         {
@@ -28,6 +30,8 @@ if(isServer) then {
 
     changeFunds = {
         diag_log format ["Calling changeFunds, with %1", _this];
+        private ["_uid", "_amount"];
+
         diag_log format ["warchestBank: %1", warchestBank];
         _uid    = _this select 0;
         _amount = _this select 1;
@@ -47,6 +51,8 @@ if(isServer) then {
 
     changeFundsAllPlayers = {
         diag_log format ["Calling changeFundsAllPlayers, with %1", _this];
+        private ["_amount"];
+
         diag_log format ["warchestBank: %1", warchestBank];
         _amount = _this select 0;
 
@@ -57,16 +63,20 @@ if(isServer) then {
 
     canAfford = {
         diag_log format ["Calling canAfford, with %1", _this];
-        _uid    = _this select 0;
-        _amount = _this select 1;
-        
+        private ["_retValue","_uid","_amount","_bankEntry"];
+
+        _uid       = _this select 0;
+        _amount    = _this select 1;
         _retValue  = false;
         _bankEntry = (_uid call fetchWarchest) select 1;
+
+        diag_log format ["_bankEntry: %1", _bankEntry];
         if(!isNil "_bankEntry") then {
             if(_bankEntry select 1 >= _amount) then{
                 _retValue = true;
             };
         };
-        _retValue    
+        diag_log format ["canAfford: %1", _retValue];
+        _retValue
     };
 };

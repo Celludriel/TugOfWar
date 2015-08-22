@@ -2,6 +2,7 @@ TODO:
 
 - Test the mobile HQ system in multiplayer
 - Test credit system in multiplayer
+- Test vehicle requisition in multiplayer
 - Implement vehicle service script http://www.armaholic.com/page.php?id=19735
 - Fill in the blanks in mission meta data: Briefing, Intro, Amount of players, etc..
 - Make revive parameters
