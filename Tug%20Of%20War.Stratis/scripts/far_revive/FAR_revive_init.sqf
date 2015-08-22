@@ -7,10 +7,15 @@
 //------------------------------------------//
 
 // Seconds until unconscious unit bleeds out and dies. Set to 0 to disable.
-FAR_BleedOut = 600;
+FAR_BleedOut = "BleedOut" call BIS_fnc_getParamValue;
 
 // Enable teamkill notifications
-FAR_EnableDeathMessages = true;
+_enableDeathMessages = "EnableDeathMessages" call BIS_fnc_getParamValue;
+if(_enableDeathMessages == 1) then {
+    FAR_EnableDeathMessages = true;
+} else {
+    FAR_EnableDeathMessages = false;
+}
 
 // If enabled, unconscious units will not be able to use ACRE radio, hear other people or use proximity chat
 FAR_MuteACRE = false;
@@ -20,7 +25,7 @@ FAR_MuteACRE = false;
     1 = All units can revive
     2 = Same as 1 but a medikit is required to revive
 */
-FAR_ReviveMode = 1;
+FAR_ReviveMode = "ReviveMode" call BIS_fnc_getParamValue;
 
 //------------------------------------------//
 

@@ -64,4 +64,14 @@ if (isServer) then {
         };
         _retValue
     };
+    
+    cacheMissionMarkers = {
+        missionMarkers = [];
+        _markers       = allMapMarkers;
+        {
+            if([_x, "mismark_", true] call BIS_fnc_inString)then{
+                missionMarkers pushBack _x;
+            }            
+        }forEach _markers;
+    };
 };

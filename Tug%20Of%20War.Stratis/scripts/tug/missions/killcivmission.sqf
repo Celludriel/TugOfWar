@@ -2,7 +2,8 @@ diag_log format ["Executing killcivmission.sqf"];
 if (isServer) then {
     _difficulty       = _this select 0;
     _misGroup         = createGroup independent;
-    _civSpawnLocation = getMarkerPos "civ_win_spawn";
+    _marker           = missionMarkers call BIS_fnc_selectRandom;
+    _civSpawnLocation = getMarkerPos _marker;
     _winCivilian      = _misGroup createUnit ["C_man_1", _civSpawnLocation, [], 0, "NONE"];
 
     waitUntil{
@@ -12,8 +13,6 @@ if (isServer) then {
     killCivMissionThreatGroupId = [] call generateThreatGroupId;
     _infAmount                  = [0] call calculateInfantrySpawnAmount;
     _vehAmount                  = [0] call calculateVehicleSpawnAmount;
-
-
 
     _spawnInit = """this addEventHandler ['killed',{_this execVM 'scripts\tug\tug_threat_dies.sqf'}];""";
     [_difficulty, _civSpawnLocation,_infAmount,_vehAmount,killCivMissionThreatGroupId,3720,_spawnInit] call spawnThreatAtLocation;
