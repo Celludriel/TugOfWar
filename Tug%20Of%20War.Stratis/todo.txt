@@ -6,9 +6,9 @@ TODO:
 - Test credit system in multiplayer
 - Test vehicle requisition in multiplayer
 - Test vehicle service script in multiplayer http://www.armaholic.com/page.php?id=19735
-- Add more mission spawn markers
+- Test UI component for the warchest in multiplayer
+- Test more mission spawn markers in multiplayer
 - Fill in the blanks in mission meta data: Briefing, Intro, Amount of players, etc..
-- Create UI component for the warchest, composite with balancebar ?
 - Let three missions spawn easy, medium, hard
 - Implement unit caching if possible
 - Create a mission with FSM

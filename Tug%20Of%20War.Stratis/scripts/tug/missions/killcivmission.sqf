@@ -5,7 +5,8 @@ if (isServer) then {
     _marker           = missionMarkers call BIS_fnc_selectRandom;
     _civSpawnLocation = getMarkerPos _marker;
     _winCivilian      = _misGroup createUnit ["C_man_1", _civSpawnLocation, [], 0, "NONE"];
-
+    _winCivilian disableAI "MOVE";
+    
     waitUntil{
         not isNull _winCivilian
     };

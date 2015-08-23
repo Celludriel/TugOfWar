@@ -7,13 +7,7 @@ class IGUIBack
     idc = 124;
     style = 128;
     text = "";
-    colorText[] =
-    {
-        0,
-        0,
-        0,
-        0
-    };
+    colorText[] = {0,0,0,0};
     font = "PuristaMedium";
     sizeEx = 0;
     shadow = 0;
@@ -21,13 +15,7 @@ class IGUIBack
     y = 0.1;
     w = 0.1;
     h = 0.1;
-    colorbackground[] =
-    {
-        "(profilenamespace getvariable ['IGUI_BCG_RGB_R',0])",
-        "(profilenamespace getvariable ['IGUI_BCG_RGB_G',1])",
-        "(profilenamespace getvariable ['IGUI_BCG_RGB_B',1])",
-        "(profilenamespace getvariable ['IGUI_BCG_RGB_A',0.8])"
-    };
+    colorbackground[] = {"(profilenamespace getvariable ['IGUI_BCG_RGB_R',0])","(profilenamespace getvariable ['IGUI_BCG_RGB_G',1])","(profilenamespace getvariable ['IGUI_BCG_RGB_B',1])","(profilenamespace getvariable ['IGUI_BCG_RGB_A',0.8])"};
 };
 class RscText
 {
@@ -36,20 +24,8 @@ class RscText
     access = 0;
     type = 0;
     idc = -1;
-    colorBackground[] =
-    {
-        0,
-        0,
-        0,
-        0
-    };
-    colorText[] =
-    {
-        1,
-        1,
-        1,
-        1
-    };
+    colorBackground[] = {0,0,0,0};
+    colorText[] = {1,1,1,1};
     text = "";
     fixedWidth = 0;
     x = 0;
@@ -58,37 +34,13 @@ class RscText
     w = 0.3;
     style = 0;
     shadow = 1;
-    colorShadow[] =
-    {
-        0,
-        0,
-        0,
-        0.5
-    };
+    colorShadow[] = {0,0,0,0.5};
     font = "PuristaMedium";
     SizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
     linespacing = 1;
-    tooltipColorText[] =
-    {
-        1,
-        1,
-        1,
-        1
-    };
-    tooltipColorBox[] =
-    {
-        1,
-        1,
-        1,
-        1
-    };
-    tooltipColorShade[] =
-    {
-        0,
-        0,
-        0,
-        0.65
-    };
+    tooltipColorText[] = {1,1,1,1};
+    tooltipColorBox[] = {1,1,1,1};
+    tooltipColorShade[] = {0,0,0,0.65};
 };
 
 ////////////////////////////////////////////////////////
