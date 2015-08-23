@@ -17,3 +17,6 @@ _handle = [] execVM "scripts\warchest\warchest_server_init.sqf";
 waitUntil { scriptDone _handle };
 
 [60,5*60,3*60,2*60,10*60,0] execVM 'scripts\repetitive_cleanup.sqf';
+
+serverInitialized = true;
+publicVariable "serverInitialized";

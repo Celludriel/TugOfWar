@@ -1,5 +1,4 @@
-waituntil {!isnil "bis_fnc_init"};
-waitUntil {!(isNil "BIS_MPF_InitDone")};
+waituntil {!isnil "serverInitialized"};
 
 diag_log format ["Executing init.sqf"];
 
