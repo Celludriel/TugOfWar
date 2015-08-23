@@ -6,9 +6,16 @@ _victim = _this select 0;
 _killer = _this select 1;
 
 if(isPlayer _killer) then {
+    _value = 0;
     if (_victim isKindOf "Ship" or _victim isKindOf "Air" or _victim isKindOf "LandVehicle") then {
-        [getPlayerUID _killer, VEH_KILL_VALUE] call changeFunds;
+        _value = VEH_KILL_VALUE;
     } else {
-        [getPlayerUID _killer, INF_KILL_VALUE] call changeFunds;
-    }
-}
+    _value = INF_KILL_VALUE;
+    };
+
+    _uid = getPlayerUID _killer;
+    [_uid, _value] call changeFunds;
+    _warchest = _uid call fetchWarchest;
+    _bankEntry = _warchest select 1;
+    _killer setVariable["warfund", _bankEntry select 1, true];
+};

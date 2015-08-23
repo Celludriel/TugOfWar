@@ -16,8 +16,6 @@ if(hasInterface) then {
     player addaction ["eyeon", "scripts\eye.sqf"];
     player addaction ["eyeoff", "EYE_run = false;"];
 
-    player addaction ["warchest content", "scripts\call_warchest_content.sqf"];
-
     [[
         ["TugOfWarTask","Tug Of War","Win enough missions to push the war effort to 100%, but beware being killed or losing missions will turn the war into the enemies favor"]
     ],[

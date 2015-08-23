@@ -25,6 +25,13 @@ if(isServer) then {
         diag_log format ["warchestBank: %1", warchestBank];
 
         warchestBank pushBack [_this, DEFAULT_WARCHEST_VALUE];
+
+        {
+            if(_this == getPlayerUID _x) exitWith {
+                _x setVariable ["warfund", DEFAULT_WARCHEST_VALUE, true];
+            };
+        } forEach allPlayers;
+
         _this call fetchWarchest
     };
 

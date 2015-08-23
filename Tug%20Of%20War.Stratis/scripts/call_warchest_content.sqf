@@ -1,2 +1,0 @@
-sGetFundsInWarchest = [player];
-publicVariableServer "sGetFundsInWarchest";

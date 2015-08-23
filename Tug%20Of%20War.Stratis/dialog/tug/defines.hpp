@@ -139,3 +139,5 @@
 
 // Tug Display Layer
 #define TUG_DISPLAY_LAYER               21
+#define TUG_DISPLAY_CONTAINER_ID        37198
+#define TUG_DISPLAY_WARCHEST_ID         37199

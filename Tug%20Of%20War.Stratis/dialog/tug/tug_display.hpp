@@ -108,7 +108,7 @@ class TugDisplayContainer{
     class Controls{
         class TugDisplayControl: IGUIBack
         {
-            idc = 2200;
+            idc = TUG_DISPLAY_CONTAINER_ID;
             x = 0.195781 * safezoneW + safezoneX;
             y = 0.016 * safezoneH + safezoneY;
             w = 0.20625 * safezoneW;
@@ -129,7 +129,7 @@ class TugDisplayContainer{
         };
         class WarchestValueText: RscText
         {
-            idc  = 1000;
+            idc  = TUG_DISPLAY_WARCHEST_ID;
             text = "Warchest: 0";
             x    = 0.267969 * safezoneW + safezoneX;
             y    = 0.049 * safezoneH + safezoneY;
