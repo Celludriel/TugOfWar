@@ -1,5 +1,5 @@
 #include "controls\balancebar\defines.hpp"
-//#include "gvs\colors_include.hpp"
+#include "dialog\tug\defines.hpp"
 
 author              = "Celludriel";
 onLoadName          = "Tug Of War";
@@ -27,7 +27,7 @@ class Params {
         values[] = {120,240,360,480,600};
         texts[] = {"120","240","360","480","600"};
         default = 360;
-    };    
+    };
     class EnableDeathMessages{
         title = "Enable Death Messages:";
         values[] = {0,1};
@@ -39,12 +39,13 @@ class Params {
         values[] = {0,1,2};
         texts[] = {"Only Medics","Everyone","Everyone With Medikit"};
         default = 1;
-    };        
+    };
 };
 
 class RscTitles
 {
     #include "controls\balancebar\balancebar.hpp"
+    #include "dialog\tug\tug_display.hpp"
     #include "dialog\statusBar.hpp"
     #include "scripts\gvs\stc_include_alt.hpp"
 };

@@ -8,6 +8,7 @@ execVM "scripts\gvs\gvs_init.sqf";
 
 if(hasInterface) then {
     [] execVM "controls\balancebar\balancebar_init.sqf";
+    ["TugDisplayContainer"] execVM "dialog\tug\draw_tug_display.sqf";
     [] execVM "scripts\fn_statusBar.sqf";
     [] execVM "scripts\MGI\MGI_init.sqf";
     [] execVM "scripts\warchest\warchest_client_init.sqf";

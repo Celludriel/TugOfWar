@@ -9,9 +9,9 @@ class TugDisplayContainer{
     duration     = 99999999999;
     fadeout      = 0;
     movingEnable = 1;
-    onLoad       = "uiNamespace setVariable ['TugDisplayContainer',_this select 0];";
+    onLoad       = "uiNamespace setVariable ['TugDisplayContainer', _this select 0];";
     onUnload     = "uiNamespace setVariable ['TugDisplayContainer', objNull]";
-    onDestroy    = "uiNamespace setVariable ['TugDisplayContainer', objNull]"; 
+    onDestroy    = "uiNamespace setVariable ['TugDisplayContainer', objNull]";
     class Controls{
         class TugDisplayControl: IGUIBack
         {
@@ -22,10 +22,6 @@ class TugDisplayContainer{
             h = 0.066 * safezoneH;
             colorBackground[] = {0,0,0,0.3};
         };
-        class TugBalanceBar: BalanceBar
-        {
-            //add stuff here to import my other gui element
-        }
         class WarchestValueText: RscText
         {
             idc = 1000;
@@ -35,10 +31,10 @@ class TugDisplayContainer{
             w = 0.061875 * safezoneW;
             h = 0.022 * safezoneH;
             colorText[] = {1,1,1,1};
-        };        
+        };
     };
 };
-    
+
 ////////////////////////////////////////////////////////
 // GUI EDITOR OUTPUT END
 ////////////////////////////////////////////////////////

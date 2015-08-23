@@ -3,12 +3,15 @@ diag_log format ["Executing balancebar_functions.sqf"];
 
 updateBalanceBar = {
     diag_log format ["Calling updateBalanceBar with %1", _this];
-    private ["_delta"];
+    private ["_dialogName", "_delta"];
 
-    _delta = _this select 0;
+    _dialogName = _this select 0;
+    _delta      = _this select 1;
 
     disableSerialization;
-    _ui = uiNamespace getVariable "BalanceBar";
+
+    _ui = uiNamespace getVariable [_dialogName, objNull];
+    diag_log format ["_ui: %1", _ui];
 
     if(_delta >= 0) then {
         _balanceBar = _ui displayCtrl BALANCE_BAR_WIN_PROGRESS_ID;
@@ -22,15 +25,15 @@ updateBalanceBar = {
         _balanceBar progressSetPosition 0;
     };
 };
+
 balanceBarUpdateEvent = {
-    diag_log format ["Executing balanceBarUpdateEvent with balanceBarValue %1", balanceBarValue];
-    [balanceBarValue] call updateBalanceBar;
-    //    if(balanceBarValue == 100 || balanceBarValue == -100) then {
-        //    sleep 2;
-        //    diag_log format ["Removing balancebar from layer %1", BALANCE_BAR_LAYER];
-        //    BALANCE_BAR_LAYER cutText ["", "PLAIN"];
-    //};
+    diag_log format ["Calling balanceBarUpdateEvent with %1", _this];
+    private ["_dialogName"];
+
+    _dialogName = _this select 0;
+    [_dialogName, balanceBarValue] call updateBalanceBar;
 };
+
 setBalanceBarValue = {
     private ["_value"];
     _value = _this select 0;

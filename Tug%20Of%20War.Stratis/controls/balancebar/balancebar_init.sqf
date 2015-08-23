@@ -7,10 +7,6 @@ if(isNil "balanceBarValue") then {
 };
 
 if (hasInterface) then {
-    diag_log format ["Drawing balancebar on screen on layer %1", BALANCE_BAR_LAYER];
-    BALANCE_BAR_LAYER cutRsc ["BalanceBar","PLAIN",0,false];
-    [balanceBarValue] call updateBalanceBar;
-
     "balanceBarValue" addPublicVariableEventHandler {
         [] call balanceBarUpdateEvent;
     };

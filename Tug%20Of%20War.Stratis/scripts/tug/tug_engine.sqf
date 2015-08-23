@@ -16,7 +16,7 @@ if (isServer) then {
         // balancebar code
         [warProgress] call setBalanceBarValue;
         if(hasInterface) then {
-            [] call balanceBarUpdateEvent;
+            ["TugDisplayContainer"] call balanceBarUpdateEvent;
         };
 
         warResult = call getWarResult;
@@ -40,7 +40,7 @@ if (isServer) then {
             // balancebar code
             [warProgress] call setBalanceBarValue;
             if(hasInterface) then {
-                [] call balanceBarUpdateEvent;
+                ["TugDisplayContainer"] call balanceBarUpdateEvent;
             };
 
             warResult = call getWarResult;

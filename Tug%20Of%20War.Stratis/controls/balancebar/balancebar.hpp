@@ -57,21 +57,6 @@ class BalanceBarWinProgress: RscProgressBar{
     colorBar[] = {0,0,1,1};
 };
 
-class BalanceBarControls{
-    class LoseBackground: BalanceBarLoseBackground{
-        idc = BALANCE_BAR_LOSE_BACKGROUND_ID;
-    };
-    class WinBackground: BalanceBarWinBackground{
-        idc = BALANCE_BAR_WIN_BACKGROUND_ID;
-    };
-    class LoseProgress: BalanceBarLoseProgress{
-        idc = BALANCE_BAR_LOSE_PROGRESS_ID;
-    };
-    class WinProgress: BalanceBarWinProgress{
-        idc = BALANCE_BAR_WIN_PROGRESS_ID;
-    };
-};
-
 class BalanceBar{
     name         = "BalanceBar";
     idd          = BALANCE_BAR_CONTAINER_ID;
@@ -79,7 +64,7 @@ class BalanceBar{
     duration     = 99999999999;
     fadeout      = 0;
     movingEnable = 1;
-    onLoad       = "uiNamespace setVariable ['BalanceBar',_this select 0];";
+    onLoad       = "uiNamespace setVariable ['BalanceBar', _this select 0];";
     onUnload     = "uiNamespace setVariable ['BalanceBar', objNull]";
     onDestroy    = "uiNamespace setVariable ['BalanceBar', objNull]";
     class Controls{
