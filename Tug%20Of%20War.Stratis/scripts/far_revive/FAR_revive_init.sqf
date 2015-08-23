@@ -15,7 +15,7 @@ if(_enableDeathMessages == 1) then {
     FAR_EnableDeathMessages = true;
 } else {
     FAR_EnableDeathMessages = false;
-}
+};
 
 // If enabled, unconscious units will not be able to use ACRE radio, hear other people or use proximity chat
 FAR_MuteACRE = false;

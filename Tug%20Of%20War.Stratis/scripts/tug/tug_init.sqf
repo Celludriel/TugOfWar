@@ -13,6 +13,10 @@ if (isServer) then {
         [warProgress] call setBalanceBarValue;
     };
 
+    //cache places where missions can spawn
+    missionMarkers = [];
+    [] call cacheMissionMarkers;
+
     //start the mission engine
     [] execVM "scripts\tug\tug_engine.sqf";
 };

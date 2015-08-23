@@ -64,14 +64,17 @@ if (isServer) then {
         };
         _retValue
     };
-    
+
     cacheMissionMarkers = {
+        diag_log format ["Calling cacheMissionMarkers, with %1", _this];
         missionMarkers = [];
         _markers       = allMapMarkers;
+        diag_log format ["_markers %1", _markers];
         {
-            if([_x, "mismark_", true] call BIS_fnc_inString)then{
+            if(["mismark_", _x, true] call BIS_fnc_inString)then{
                 missionMarkers pushBack _x;
-            }            
+            }
         }forEach _markers;
+        diag_log format ["Cached markers: %1", missionMarkers];
     };
 };

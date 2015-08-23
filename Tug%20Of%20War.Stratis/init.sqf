@@ -1,4 +1,5 @@
-waitUntil {!isnil "bis_fnc_init"};
+waituntil {!isnil "bis_fnc_init"};
+waitUntil {!(isNil "BIS_MPF_InitDone")};
 
 diag_log format ["Executing init.sqf"];
 
@@ -14,7 +15,7 @@ if(hasInterface) then {
 
     player addaction ["eyeon", "scripts\eye.sqf"];
     player addaction ["eyeoff", "EYE_run = false;"];
-    
+
     player addaction ["warchest content", "scripts\call_warchest_content.sqf"];
 
     [[
