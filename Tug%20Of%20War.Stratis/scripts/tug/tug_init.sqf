@@ -17,6 +17,9 @@ if (isServer) then {
     missionMarkers = [];
     [] call cacheMissionMarkers;
 
+    //list of all available missions
+    missions        = ["killcivmission"];
+    
     //start the mission engine
     [] execVM "scripts\tug\tug_engine.sqf";
 };
