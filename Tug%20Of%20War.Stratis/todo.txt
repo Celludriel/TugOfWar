@@ -1,5 +1,6 @@
 TODO:
 
+- Test three missions spawn easy, medium, hard
 - Test revive parameters
 - Test mission spawn at random mission spawn markers
 - Test the mobile HQ system in multiplayer
@@ -9,7 +10,6 @@ TODO:
 - Test UI component for the warchest in multiplayer
 - Test more mission spawn markers in multiplayer
 - Fill in the blanks in mission meta data: Briefing, Intro, Amount of players, etc..
-- Let three missions spawn easy, medium, hard
 - Implement unit caching if possible
 - Create a mission with FSM
 - Create more missions

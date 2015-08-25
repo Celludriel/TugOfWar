@@ -1,8 +1,10 @@
 diag_log format ["Executing tug_spawn_mission.sqf"];
 if (isServer) then {
+    activeMissions  = [objNull,objNull,objNull];
     missionResult   = nil;
     missions        = ["killcivmission"];
-    _missionToSpawn = missions call BIS_fnc_selectRandom;
 
-    ["EASY"] execVM (format ["scripts\tug\missions\%1.sqf", _missionToSpawn]);
+    [0, "EASY"] call spawnMission;
+    [1, "MEDIUM"] call spawnMission;
+    [2, "HARD"] call spawnMission;
 };

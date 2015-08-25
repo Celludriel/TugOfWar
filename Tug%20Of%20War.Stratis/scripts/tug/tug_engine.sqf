@@ -10,9 +10,9 @@ if (isServer) then {
     };
 
     diag_log format ["MissionResult: %1", missionResult];
-    if(missionResult == "WON") then {
-        [["EASY", true] call calculateMissionResult] call updateWarProgress;
-
+    if((missionResult select 1) == "WON") then {
+        [[(missionResult select 0), true] call calculateMissionResult] call updateWarProgress;
+        [(missionResult select 0)] call clearCompletedMission;
         // balancebar code
         [warProgress] call setBalanceBarValue;
         if(hasInterface) then {
@@ -34,8 +34,9 @@ if (isServer) then {
             };
         };
     } else {
-        if(missionResult == "LOST") then {
-            [["EASY", false] call calculateMissionResult] call updateWarProgress;
+        if((missionResult select 1) == "LOST") then {
+            [[(missionResult select 0), false] call calculateMissionResult] call updateWarProgress;
+            [(missionResult select 0)] call clearCompletedMission;
 
             // balancebar code
             [warProgress] call setBalanceBarValue;

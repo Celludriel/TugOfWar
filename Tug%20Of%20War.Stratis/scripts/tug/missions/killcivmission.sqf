@@ -21,7 +21,7 @@ if (isServer) then {
     ["KillCivilianTraitor","Eliminate the traitor","Intelligence found out a traitor is giving information to the enemy, eliminate him.  He will only be in the area for the next hour so be quick !",true,["KillCivilianMarker",_civSpawnLocation]] call SHK_Taskmaster_add;
 
     _winEventHandler = _winCivilian addMPEventHandler ["mpkilled",{
-                                                        missionResult = "WON";
+                                                        missionResult = [_difficulty,"WON"];
                                                         ["KillCivilianTraitor","succeeded"] call SHK_Taskmaster_upd;
                                                         [50] call changeFundsAllPlayers;
                                                     }];
@@ -35,7 +35,7 @@ if (isServer) then {
     diag_log format ["killcivmission lost handling the cleanup"];
     if(alive _winCivilian) then {
         ["KillCivilianTraitor","failed"] call SHK_Taskmaster_upd;
-        missionResult = "LOST";
+        missionResult = [_difficulty,"LOST"];
         _winCivilian removeMPEventHandler ["mpkilled", _winEventHandler];
     };
 

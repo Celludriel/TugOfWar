@@ -1,6 +1,39 @@
 diag_log format ["Executing tug_srv_functions.sqf"];
 if (isServer) then {
     diag_log format ["Initializing server functions"];
+    
+    spawnMission = {
+        private ["_index, _difficulty"];
+        
+        _index  = _this select 0;
+        _difficulty = _this select 1;
+        
+        if(isNull activeMissions[_index]) then {
+            _missionToSpawn = missions call BIS_fnc_selectRandom;
+            [_difficulty] execVM (format ["scripts\tug\missions\%1.sqf", _missionToSpawn]);
+            activeMissions set [_index, true];
+        };
+    };
+    
+    clearCompletedMission = {
+        diag_log format ["Calling clearCompletedMission, with %1", _this];
+        private ["_missionDifficulty"];
+
+        _missionDifficulty = _this select 0;
+
+        if(_missionDifficulty == "EASY") then {
+            activeMissions set [0, objNull];
+        };
+
+        if(_missionDifficulty == "MEDIUM") then {
+            activeMissions set [1, objNull];
+        };
+
+        if(_missionDifficulty == "HARD") then {
+            activeMissions set [2, objNull];
+        };
+    };
+    
     setWarProgress = {
         diag_log format ["Calling setWarProgress with %1", _this];
 
@@ -64,7 +97,7 @@ if (isServer) then {
         };
         _retValue
     };
-
+    
     cacheMissionMarkers = {
         diag_log format ["Calling cacheMissionMarkers, with %1", _this];
         missionMarkers = [];
