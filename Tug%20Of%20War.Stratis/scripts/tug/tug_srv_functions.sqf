@@ -2,13 +2,19 @@ diag_log format ["Executing tug_srv_functions.sqf"];
 if (isServer) then {
     diag_log format ["Initializing server functions"];
     
+    getRandomMarker = {
+        _marker        = missionMarkers call BIS_fnc_selectRandom;
+        missionMarkers = missionMarkers - [_marker];
+        _marker
+    };
+    
     spawnMission = {
         private ["_index, _difficulty"];
         
         _index  = _this select 0;
         _difficulty = _this select 1;
         
-        if(isNull activeMissions[_index]) then {
+        if(isNull (activeMissions select _index)) then {
             _missionToSpawn = missions call BIS_fnc_selectRandom;
             [_difficulty] execVM (format ["scripts\tug\missions\%1.sqf", _missionToSpawn]);
             activeMissions set [_index, true];
