@@ -15,7 +15,4 @@ if(isPlayer _killer) then {
 
     _uid = getPlayerUID _killer;
     [_uid, _value] call changeFunds;
-    _warchest = _uid call fetchWarchest;
-    _bankEntry = _warchest select 1;
-    _killer setVariable["warfund", _bankEntry select 1, true];
 };

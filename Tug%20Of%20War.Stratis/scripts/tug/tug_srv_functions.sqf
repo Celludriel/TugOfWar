@@ -14,6 +14,7 @@ if (isServer) then {
         _index  = _this select 0;
         _difficulty = _this select 1;
         
+        diag_log format ["activeMissions: %1", activeMissions];
         if(isNull (activeMissions select _index)) then {
             _missionToSpawn = missions call BIS_fnc_selectRandom;
             [_difficulty] execVM (format ["scripts\tug\missions\%1.sqf", _missionToSpawn]);

@@ -26,15 +26,22 @@ if(isServer) then {
 
         warchestBank pushBack [_this, DEFAULT_WARCHEST_VALUE];
 
-        {
-            if(_this == getPlayerUID _x) exitWith {
-                _x setVariable ["warfund", DEFAULT_WARCHEST_VALUE, true];
-            };
-        } forEach allPlayers;
-
+        [_this,DEFAULT_WARCHEST_VALUE] call setWarfundOnPlayerByPlayerUID;        
         _this call fetchWarchest
     };
 
+    setWarfundOnPlayerByPlayerUID = {
+        diag_log format ["Calling setWarfundOnPlayerByPlayerUID, with %1", _this];
+        _playerUID = _this select 0;
+        _amount    = _this select 1;
+        
+        {
+            if(_playerUID == getPlayerUID _x) exitWith {
+                _x setVariable ["warfund", _amount, true];
+            };
+        } forEach allPlayers;        
+    };
+    
     changeFunds = {
         diag_log format ["Calling changeFunds, with %1", _this];
         private ["_uid", "_amount"];
@@ -47,13 +54,17 @@ if(isServer) then {
 
         diag_log format ["_warchest: %1", _warchest];
 
+        //update bank entry
         _bankEntry = _warchest select 1;
-        diag_log format ["before bankEntry: %1", _bankEntry];
-        _bankEntry set [1, ((_bankEntry select 1) + _amount)];
-        diag_log format ["after bankEntry: %1", _bankEntry];
+        _newAmount = ((_bankEntry select 1) + _amount);
+        _bankEntry set [1, _newAmount];
+        
+        //put bank entry back in the warchest
         _index = _warchest select 0;
         warchestBank set [_index, _bankEntry];
-        diag_log format ["new warchestBank: %1", warchestBank];
+        
+        //communicate players new balance
+        [_uid,_newAmount] call setWarfundOnPlayerByPlayerUID; 
     };
 
     changeFundsAllPlayers = {
