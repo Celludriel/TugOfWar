@@ -19,7 +19,9 @@ if (isServer) then {
 
     //list of all available missions
     missions        = ["killcivmission"];
-    
+    //setup active missions
+    activeMissions = [false,false,false];
+
     //start the mission engine
     [] execVM "scripts\tug\tug_engine.sqf";
 };

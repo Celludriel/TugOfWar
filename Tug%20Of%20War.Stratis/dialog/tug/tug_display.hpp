@@ -85,7 +85,7 @@ class TugDisplayContainer{
             text = "Warchest: 0";
             x    = 0.267969 * safezoneW + safezoneX;
             y    = 0.049 * safezoneH + safezoneY;
-            w    = 0.061875 * safezoneW;
+            w    = 0.08 * safezoneW;
             h    = 0.022 * safezoneH;
             colorText[] = {1,1,1,1};
         };

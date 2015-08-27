@@ -29,6 +29,7 @@ if (isServer) then {
                                                         missionResult = [_difficulty,"WON"];
                                                         [format ["KillCivilianTraitor%1", _difficulty],"succeeded"] call SHK_Taskmaster_upd;
                                                         [50] call changeFundsAllPlayers;
+                                                        deleteMarker format ["KillCivilianMarker%1", _difficulty];
                                                         missionMarkers pushBack _marker;
                                                     }];
 
@@ -43,6 +44,7 @@ if (isServer) then {
         [format ["KillCivilianTraitor%1", _difficulty],"failed"] call SHK_Taskmaster_upd;
         missionResult = [_difficulty,"LOST"];
         _winCivilian removeMPEventHandler ["mpkilled", _winEventHandler];
+        deleteMarker format ["KillCivilianMarker%1", _difficulty];
         missionMarkers pushBack _marker;
     };
 
