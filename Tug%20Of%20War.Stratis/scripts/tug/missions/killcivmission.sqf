@@ -21,15 +21,22 @@ if (isServer) then {
     _spawnInit = """this addEventHandler ['killed',{_this execVM 'scripts\tug\tug_threat_dies.sqf'}];""";
     [_difficulty, _civSpawnLocation,_infAmount,_vehAmount,killCivMissionThreatGroupId,3720,_spawnInit] call spawnThreatAtLocation;
 
-    [format ["KillCivilianTraitor%1", _difficulty],"Eliminate the traitor","Intelligence found out a traitor is giving information to the enemy, eliminate him.  He will only be in the area for the next hour so be quick !",true,[format ["KillCivilianMarker%1", _difficulty],_civSpawnLocation]] call SHK_Taskmaster_add;
+    diag_log format ["Calling Taskmaster add task"];
+    [format ["KillCivilianTraitor%1", _difficulty]
+    ,"Eliminate the traitor"
+    ,"Intelligence found out a traitor is giving information to the enemy, eliminate him.  He will only be in the area for the next hour so be quick !"
+    ,true
+    ,[format ["KillCivilianMarker%1", _difficulty],_civSpawnLocation]
+    ,"created"
+    ] call SHK_Taskmaster_add;
+    diag_log format ["Completed Taskmaster add task"];
 
     _winEventHandler = _winCivilian addMPEventHandler ["mpkilled",{
                                                         _difficulty = ((_this select 0) getVariable "_difficulty");
                                                         _marker = ((_this select 0) getVariable "_marker");
                                                         missionResult = [_difficulty,"WON"];
-                                                        [format ["KillCivilianTraitor%1", _difficulty],"succeeded"] call SHK_Taskmaster_upd;
+                                                        [format ["KillCivilianTraitor%1", _difficulty],"succeeded_remove"] call SHK_Taskmaster_upd;
                                                         [50] call changeFundsAllPlayers;
-                                                        deleteMarker format ["KillCivilianMarker%1", _difficulty];
                                                         missionMarkers pushBack _marker;
                                                     }];
 
@@ -41,10 +48,9 @@ if (isServer) then {
 
     diag_log format ["killcivmission lost handling the cleanup"];
     if(alive _winCivilian) then {
-        [format ["KillCivilianTraitor%1", _difficulty],"failed"] call SHK_Taskmaster_upd;
+        [format ["KillCivilianTraitor%1", _difficulty],"failed_remove"] call SHK_Taskmaster_upd;
         missionResult = [_difficulty,"LOST"];
         _winCivilian removeMPEventHandler ["mpkilled", _winEventHandler];
-        deleteMarker format ["KillCivilianMarker%1", _difficulty];
         missionMarkers pushBack _marker;
     };
 

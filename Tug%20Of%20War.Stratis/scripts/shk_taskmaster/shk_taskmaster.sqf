@@ -1,14 +1,14 @@
 /* == TASKMASTER ===============================================================================
-  
+
   Version 0.44
   Author: Shuko (shuko@quakenet, miika@miikajarvinen.fi)
   Contributors: Alwarren, cuel, Fat_Lurch, galzohar, Levrex, zuff
   Forum: http://forums.bistudio.com/showthread.php?160974-SHK_Taskmaster
-  
+
   == Creating a briefing =======================================================================
-  
+
   Tasks and notes are given in the init.sqf.
-  
+
   Syntax: [[[Task1Data],[Task2Data]],[[Note1Data],[Note2Data]]] execvm "shk_taskmaster.sqf";
   Example:
     [[
@@ -19,15 +19,15 @@
       ["Note2","Hello East",EAST],
       ["Credits","<br />Made by: Shuko of LDD Kyllikki<br />Contact: shuko@Quakenet<br />www.kyllikki.fi"]
     ]] execvm "shk_taskmaster.sqf";
-  
+
   -- Task Data ---------------------------------------------------------------------------------
     ["TaskName","Title","Description",Condition,[Marker],"State"]
-    
+
     Required parameters:
       TaskName      string     Name used to refer to the task
       Title         string     Task name shown in the in/game task list
       Description   string     Task description, the actual text body
-    
+
     Optional parameters:
       Condition     boolean/side/faction/unit/group/string/array   Units the task is added to. Default is everyone
       Marker        array     Marker related to the task. It will be created only for the units who have the
@@ -42,113 +42,113 @@
         Size        number or array     Marker size. If number given, it's used for both X and Y dimension.
       State         string    Task state of the newly created task. Default is "created". Using "assigned" creates the task as assigned and sets it current.
       Destination   object/position/marker   Place to create task destination (game's built-in waypoint/marker). If an object is given, setSimpleTaskTarget command is used, attaching the destination to it.
-      
+
     - Condition -
     It's possible to specify which units (groups, side etc) you want to create the tasks/notes for.
-    
+
     Examples:
       [...,WEST]               All playable units on BLUFOR (WEST)
       [...,"USMC"]             Faction USMC
       [...,grpMarine1]         Units that belong to group named grpMarine1
       [...,myDude]             Unit named myDude
-      
+
     Then there is the IF syntax, so you can create a condition anyway you want, where _x is the unit (=player).
-    
+
     Examples:
       "((group _x == grpScouts) OR (_x == pilot1))"     Members of grpScouts and unit named pilot1
       "(typeof _x == ""CDF_Soldier_Sniper"")"           All CDF snipers
-  
+
   -- Note Data ---------------------------------------------------------------------------------
     [NoteTitle,NoteText,Condition]
-    
+
     Required parameters:
       NoteTitle     string     Text shown in the list
       NoteText      string     The actual note text body
-      
+
     Optional parameters:
       Condition    boolean/side/faction/unit/group/string   Units the note is added to. Default is everyone.
-      
+
   == Updating tasks ============================================================================
-  
+
   Task states are updated by calling a function. Possible states are: succeeded/failed/canceled/assigned/created.
   Example: ["Task1","succeeded"] call SHK_Taskmaster_upd;
-  
+
   It's possible to set state of one task and set another as assigned using an optional 3rd parameter.
   Example: ["Task1","succeeded","Task2"] call SHK_Taskmaster_upd;
-  
+
   This will make task state of task Task1 to succeeded and the state of the task Task2 as assigned.
-  
+
   Another optional 3rd parameter can be used to add a new task after updating another task.
   Example: ["Task1","succeeded",["Task2","Title","Desc"]] call SHK_Taskmaster_upd;
-  
+
   This will make task Task1 as succeeded and create a new task Task2. Same set of parameters is used for the
   creation as in init.sqf or SHK_Taskmaster_add.
-  
+
   == Creating tasks during a mission ===========================================================
-  
+
   Tasks can be added after briefing with the add function. Same set of parameters is used as in creating a
   briefing.
-  
+
   Example: ["Task2","Extraction","Get to teh choppa!"] call SHK_Taskmaster_add;
-  
+
   == Checking task status ======================================================================
-  
+
     SHK_Taskmaster_areCompleted
       This function can be used to check if multiple tasks are completed. Task is considered completed with states
       succeeded, failed and canceled. Function returns a boolean (true/false) value.
-  
+
       Example: ["Task1","Task2"] call SHK_Taskmaster_isCompleted
-  
+
     SHK_Taskmaster_isCompleted
       This function can be used to check if a task is completed. Task is considered completed with states
       succeeded, failed and canceled. Function returns a boolean (true/false) value.
-  
+
       Example: "Task1" call SHK_Taskmaster_isCompleted
       Multiple tasks: ["Task1","Task2"] call SHK_Taskmaster_isCompleted
-    
+
     SHK_Taskmaster_getAssigned
       Returns list of tasks which have "assigned" as their state.
-      
+
       Example: call SHK_Taskmaster_getAssigned
       Example result: ["Task1","Task4"]
-      
+
     SHK_Taskmaster_getState
       Returns the task state (succeeded/failed/canceled/assigned/created).
-      
+
       Example: "Task1" call SHK_Taskmaster_getState
-      
+
     SHK_Taskmaster_hasState
       Checks if a task's state matches the given state. Function returns a boolean value.
-      
+
       Example: ["Task1","succeeded"] call SHK_Taskmaster_hasState
 
     SHK_Taskmaster_hasTask
       Checks if a task with the given name has been created. Returns boolean.
-      
+
       Example: "Task1" call SHK_Taskmaster_hasTask
-      
+
     SHK_Taskmaster_setCurrentLocal
       Sets the given task as the current task.
-      
+
       Example: "Task1" call SHK_Taskmaster_setCurrentLocal;
       Multiplayer Example: ["Task1","SHK_Taskmaster_setCurrentLocal",true,true] call BIS_fnc_MP
-      
+
     SHK_Taskmaster_addNote (client only)
       Creates a briefing note. This can only be used on client side, and it's not broadcasted for
       other players.
-      
+
       Parameters: ["Title","TextBody",Condition]
-      
+
       Condition is optional.
-      
+
       Example: Example: ["Enemy forces","Oh noes, there will be enemy soldiers in the area of operation."] call SHK_Taskmaster_addNote
-  
+
   == Known Issues =========================================================================
     If multiple add/upd calls are used nearly simultaneously (for example in same onAct field of a trigger) the tasks can multiply.
     This is because the script uses publicvariable and publicvariable eventhandler syncing. First command needs to travel over the net
     from server to clients and be processed before another update comes in. Way to avoid this issue is to add some waiting between the
     calls, for example "sleep 1;".
-  
+
   == Version history ======================================================================
     0.44  Added: An array can now be used as a condition.
     0.43  Added: Using "assigned" task state will automatically set that task as current task. Use "created" to avoid that.
@@ -188,6 +188,7 @@ DEBUG = false;
     Out:
     */
     if isserver then {
+      diag_log format ["SHK_Taskmaster> Executing SHK_Taskmaster_add"];
       private ["_name","_short","_long","_cond","_marker","_state","_dest"];
       _name = _this select 0;
       _short = _this select 1;
@@ -197,10 +198,12 @@ DEBUG = false;
       if (count _this > 5) then { _state = _this select 5 } else { _state = "created" };
       if (count _this > 6) then { _dest = _this select 6 } else { _dest = 0 };
       SHK_Taskmaster_Tasks set [count SHK_Taskmaster_Tasks, [_name,_short,_long,_cond,_marker,_state,_dest]];
+      diag_log format ["SHK_Taskmaster> new tasks %1", SHK_Taskmaster_Tasks];
       publicvariable "SHK_Taskmaster_Tasks";
       /*
         Update for host of the non-dedicated server.
       */
+      diag_log format ["SHK_Taskmaster> eventHandle trigger %1 - %2", !isdedicated, SHK_Taskmaster_initDone];
       if (!isdedicated && SHK_Taskmaster_initDone) then {
         SHK_Taskmaster_Tasks spawn SHK_Taskmaster_handleEvent;
       };
@@ -226,20 +229,20 @@ DEBUG = false;
          If marker exists, it will be shown or hidden depending if the unit has the task.
       In: array     ["Name","Title","Desc",[Marker],"State",Destination]
     */
-    
+
     private ["_handle","_handles","_name","_state","_marker","_dest"];
     _handles = [];
     _name = _this select 0;
     _marker = _this select 4;
     _state = _this select 5;
     _dest = _this select 6;
-    if DEBUG then { diag_log format ["SHK_Taskmaster> addTask: %1, %2, %3, %4",_name,_marker,_state,_dest]};
+    diag_log format ["SHK_Taskmaster> addTask: %1, %2, %3, %4",_name,_marker,_state,_dest];
     {
       if ( [_x,(_this select 3)] call SHK_Taskmaster_checkCond ) then {
         _handle = _x createsimpletask [_name];
         _handle setsimpletaskdescription [(_this select 2),(_this select 1),""];
         _handle settaskstate _state;
-        
+
         if (_state == "assigned") then {
           _x setcurrenttask _handle;
         };
@@ -248,12 +251,13 @@ DEBUG = false;
           case "STRING": { _handle setsimpletaskdestination (getmarkerpos _dest) };
           case "ARRAY": { _handle setsimpletaskdestination _dest };
         };
-        
+
         _handles set [count _handles,_handle];
-        
+
         if (_x == player) then {
           if (SHK_Taskmaster_showHints) then { [_handle,_state] call SHK_Taskmaster_showHint };
-          
+
+          diag_log format ["state: %1, marker: %2", _state, _marker];
           if (count _marker > 0) then {
             if !(_state in ["succeeded","failed","canceled"]) then {
               if (typename (_marker select 0) == typename "") then {
@@ -261,18 +265,19 @@ DEBUG = false;
               };
               private ["_m","_type","_color","_txt","_shape","_size"];
               {
+                diag_log format ["Running create marker code"];
                 _m = createmarkerlocal [(_x select 0),(_x select 1)];
-                
+
                 _type = "selector_selectedMission";
                 if (count _x > 2) then {
                   private "_tmp";
-                  _tmp = (_x select 2); 
+                  _tmp = (_x select 2);
                   if (_tmp != "") then {
                     _type = _tmp;
                   };
                 };
                 _m setmarkertypelocal _type;
-                
+
                 _color = "ColorRed";
                 if (count _x > 3) then {
                   private "_tmp";
@@ -282,7 +287,7 @@ DEBUG = false;
                   };
                 };
                 _m setmarkercolorlocal _color;
-                
+
                 _txt = "";
                 if (count _x > 4) then {
                   private "_tmp";
@@ -292,7 +297,7 @@ DEBUG = false;
                   };
                 };
                 _m setmarkertextlocal _txt;
-                
+
                 _shape = "ICON";
                 if (count _x > 5) then {
                   private "_tmp";
@@ -302,7 +307,7 @@ DEBUG = false;
                   };
                 };
                 _m setmarkershapelocal _shape;
-                
+
                 _size = [1,1];
                 if (count _x > 6) then {
                   private "_tmp";
@@ -315,7 +320,7 @@ DEBUG = false;
                   };
                 };
                 _m setmarkersizelocal _size;
-                
+
               } foreach _marker;
             };
           };
@@ -411,6 +416,20 @@ DEBUG = false;
     } foreach SHK_Taskmaster_Tasks;
     _s;
   };
+  SHK_Taskmaster_removeTask = {
+    /*   Returns state of the given task.
+     In: string      "Name"
+    */
+    diag_log format ["Removing task with name %1",_this];
+    {
+      if (_this == (_x select 0)) exitwith {
+        diag_log format ["Task found setting %1 to -1", _forEachIndex];
+        SHK_Taskmaster_Tasks set [_forEachIndex, -1];
+      };
+    } foreach SHK_Taskmaster_Tasks;
+    SHK_Taskmaster_Tasks = SHK_Taskmaster_Tasks - [-1];
+    publicVariable "SHK_Taskmaster_Tasks";
+  };
   SHK_Taskmaster_handleEvent = {
     /*   Takes the pubvar'd task array and determines if a task needs to be added or updated.
      In: array     SHK_Taskmaster_Tasks from pubvar eventhandler
@@ -420,13 +439,15 @@ DEBUG = false;
     private "_name";
     {
       _name = _x select 0;
+      diag_log format ["HandleTaskEvent _name: %1", _name];
       if (_name call SHK_Taskmaster_hasTaskLocal) then {
+        diag_log format ["HandleTaskEvent hasTaskLocal"];
         if ([_name,(_x select 5)] call SHK_Taskmaster_hasStateChanged) then {
-          if DEBUG then { diag_log format ["SHK_Taskmaster> handleEvent calling updateTask: %1",_name]};
+          diag_log format ["SHK_Taskmaster> handleEvent calling updateTask: %1",_name];
           _x call SHK_Taskmaster_updateTask;
         };
       } else {
-        if DEBUG then { diag_log format ["SHK_Taskmaster> handleEvent calling addTask: %1",_name]};
+        diag_log format ["SHK_Taskmaster> handleEvent calling addTask: %1",_name];
         _x call SHK_Taskmaster_addTask;
       };
     } foreach _this;
@@ -498,7 +519,7 @@ DEBUG = false;
     if (typeName _this == typeName "") then {
       _this = [_this];
     };
-    
+
     {
       _t = _x;
       _i = _foreachIndex;
@@ -514,11 +535,11 @@ DEBUG = false;
         };                                  // and this will allow to check dynamic tasks
       } foreach SHK_Taskmaster_Tasks;
     } foreach _this;
-    
+
     if ({_x} count _this == count _this) then {
       _b = true;
     };
-    
+
     _b;
   };
   SHK_Taskmaster_isFaction = {
@@ -547,7 +568,7 @@ DEBUG = false;
           {
             if (_handle in (simpletasks _x)) then {
               _x setcurrenttask _handle;
-              
+
               if (_x == player) then {
                 if (SHK_Taskmaster_showHints) then { [_handle,"Assigned"] call SHK_Taskmaster_showHint };
               };
@@ -563,8 +584,10 @@ DEBUG = false;
       case "created": {   _taskCase = "TaskCreated" };
       case "assigned": {  _taskCase = "TaskAssigned" };
       case "succeeded": { _taskCase = "TaskSucceeded" };
-      case "failed": {    _taskCase = "TaskFailed" };
-      case "canceled": {  _taskCase = "TaskCanceled" };
+      case "succeeded_remove": { _taskCase = "TaskSucceeded" };
+      case "failed": { _taskCase = "TaskFailed" };
+      case "failed_remove": { _taskCase = "TaskFailed" };
+      case "canceled": { _taskCase = "TaskCanceled" };
     };
     [_taskCase, ["", format ["%1", ((taskDescription (_this select 0)) select 1)]]] spawn BIS_fnc_showNotification;
   };
@@ -618,12 +641,12 @@ DEBUG = false;
           {
             if (_handle in (simpletasks _x)) then {
               _handle settaskstate _state;
-              
+
               if (_x == player) then {
                 if (SHK_Taskmaster_showHints) then { [_handle,_state] call SHK_Taskmaster_showHint };
-                
+
                 if (count _marker > 0) then {
-                  if (_state in ["succeeded","failed","canceled"]) then {
+                  if (_state in ["succeeded","succeeded_remove","failed","failed_remove","canceled"]) then {
                     if DEBUG then { diag_log format ["SHK_Taskmaster> updateTask deleting marker: %1, state: %2",_marker,_state]};
                     if (typename (_marker select 0) == typename "") then {
                       _marker = [_marker];
@@ -632,6 +655,13 @@ DEBUG = false;
                       deletemarkerlocal (_x select 0);
                     } foreach _marker;
                   };
+                };
+
+                if(_state in ["succeeded_remove","failed_remove"]) then {
+                  _name call SHK_Taskmaster_removeTask;
+                  player removeSimpleTask _handle;
+                  SHK_Taskmaster_TasksLocal set [_i, -1];
+                  SHK_Taskmaster_TasksLocal = SHK_Taskmaster_TasksLocal - [-1];
                 };
               };
             };
@@ -661,7 +691,7 @@ if isserver then {
     diag_log "-- SHK_Taskmaster_Tasks --";
     diag_log SHK_Taskmaster_Tasks;
   };
-  
+
 };
 /* == CLIENT =================================================================================== */
 if !isdedicated then {
@@ -682,7 +712,7 @@ if !isdedicated then {
   /*
     Initially wait for server to send the task list for briefing. After briefing is created, add
     an eventhandler to catch the updated task list server might send.
-    
+
     Wait for briefing tasks to be created before enabling taskhints. This prevents hints from briefing tasks
     from being spammed at the start of the mission.
   */
@@ -693,7 +723,7 @@ if !isdedicated then {
     private "_sh";
     _sh = SHK_Taskmaster_Tasks spawn SHK_Taskmaster_handleEvent;
     waituntil {scriptdone _sh};
-    
+
     SHK_Taskmaster_showHints = true;
     SHK_Taskmaster_initDone = true;
 
