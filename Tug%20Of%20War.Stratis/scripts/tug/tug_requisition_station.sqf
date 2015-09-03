@@ -17,12 +17,11 @@ _station addaction [format["Requisition (%1)", _value],
     diag_log format ["Calling Requisition action, with %1", _this];
     _station = _this select 0;
     _caller = _this select 1;
-    _uid    = getPlayerUID _caller;
     _value = _station getVariable "_value";
     _spawnMarker = _station getVariable "_spawnMarker";
     _vehicleType = _station getVariable "_vehicleType";
 
-    if([_uid, _value] call canAfford) then {
+    if([_caller, _value] call canAfford) then {
         _spawnLocation = getMarkerPos _spawnMarker;
         _list          = _spawnLocation nearObjects 5;
 
@@ -35,7 +34,7 @@ _station addaction [format["Requisition (%1)", _value],
             call compile format["publicVariable 'reqVehicle%1'", _random];
             call compile format["reqVehicle%1 setDir _dir;", _random];
 
-            [_uid, -(_value)] call changeFunds;
+            [_caller, -(_value)] call changeFunds;
         } else {
             hint "Something is blocking the deployment zone";
         };

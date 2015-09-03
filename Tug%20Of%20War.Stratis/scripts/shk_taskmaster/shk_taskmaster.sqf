@@ -188,7 +188,6 @@ DEBUG = false;
     Out:
     */
     if isserver then {
-      diag_log format ["SHK_Taskmaster> Executing SHK_Taskmaster_add"];
       private ["_name","_short","_long","_cond","_marker","_state","_dest"];
       _name = _this select 0;
       _short = _this select 1;
@@ -198,8 +197,8 @@ DEBUG = false;
       if (count _this > 5) then { _state = _this select 5 } else { _state = "created" };
       if (count _this > 6) then { _dest = _this select 6 } else { _dest = 0 };
       SHK_Taskmaster_Tasks set [count SHK_Taskmaster_Tasks, [_name,_short,_long,_cond,_marker,_state,_dest]];
-      diag_log format ["SHK_Taskmaster> new tasks %1", SHK_Taskmaster_Tasks];
       publicvariable "SHK_Taskmaster_Tasks";
+
       /*
         Update for host of the non-dedicated server.
       */
@@ -259,7 +258,7 @@ DEBUG = false;
 
           diag_log format ["state: %1, marker: %2", _state, _marker];
           if (count _marker > 0) then {
-            if !(_state in ["succeeded","failed","canceled"]) then {
+            if !(_state in ["succeeded","failed","canceled","succeeded_remove","failed_remove"]) then {
               if (typename (_marker select 0) == typename "") then {
                 _marker = [_marker];
               };
@@ -423,7 +422,6 @@ DEBUG = false;
     diag_log format ["Removing task with name %1",_this];
     {
       if (_this == (_x select 0)) exitwith {
-        diag_log format ["Task found setting %1 to -1", _forEachIndex];
         SHK_Taskmaster_Tasks set [_forEachIndex, -1];
       };
     } foreach SHK_Taskmaster_Tasks;
@@ -439,9 +437,7 @@ DEBUG = false;
     private "_name";
     {
       _name = _x select 0;
-      diag_log format ["HandleTaskEvent _name: %1", _name];
       if (_name call SHK_Taskmaster_hasTaskLocal) then {
-        diag_log format ["HandleTaskEvent hasTaskLocal"];
         if ([_name,(_x select 5)] call SHK_Taskmaster_hasStateChanged) then {
           diag_log format ["SHK_Taskmaster> handleEvent calling updateTask: %1",_name];
           _x call SHK_Taskmaster_updateTask;
@@ -525,7 +521,7 @@ DEBUG = false;
       _i = _foreachIndex;
       {
         if (_t == (_x select 0)) then {
-          if ((_x select 5) in ["succeeded","failed","canceled"]) then {
+          if ((_x select 5) in ["succeeded","succeeded_remove","failed","failed_remove","canceled"]) then {
             _this set [_i,true];
           } else {
             _this set [_i,false]

@@ -1,0 +1,1 @@
+(_this select 0) call compileFinal preprocessFileLineNumbers "scripts\warchest\warchest_playerconnects.sqf";

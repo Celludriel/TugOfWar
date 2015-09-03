@@ -13,6 +13,5 @@ if(isPlayer _killer) then {
     _value = INF_KILL_VALUE;
     };
 
-    _uid = getPlayerUID _killer;
-    [_uid, _value] call changeFunds;
+    [_killer, _value] call changeFunds;
 };

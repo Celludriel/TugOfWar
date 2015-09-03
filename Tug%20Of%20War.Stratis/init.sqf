@@ -7,11 +7,14 @@ call compileFinal preprocessFileLineNumbers "scripts\far_revive\FAR_revive_init.
 execVM "scripts\gvs\gvs_init.sqf";
 
 if(hasInterface) then {
-    [] execVM "controls\balancebar\balancebar_init.sqf";
+    _handle =  [] execVM "controls\balancebar\balancebar_init.sqf";
+    waitUntil { scriptDone _handle };
+    _handle =  [] execVM "scripts\warchest\warchest_client_init.sqf";
+    waitUntil { scriptDone _handle };
     ["TugDisplayContainer"] execVM "dialog\tug\draw_tug_display.sqf";
+
     [] execVM "scripts\fn_statusBar.sqf";
     [] execVM "scripts\MGI\MGI_init.sqf";
-    [] execVM "scripts\warchest\warchest_client_init.sqf";
 
     player addaction ["eyeon", "scripts\eye.sqf"];
     player addaction ["eyeoff", "EYE_run = false;"];
